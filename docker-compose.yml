@@ -1,0 +1,22 @@
+services:
+  mongo:
+    image:  custommongo
+
+  api:
+    image:  api
+    depends_on:
+      -  mongo
+    links:
+      -  mongo
+
+  nginx:
+    image:  cnginx
+    depends_on:
+      -  mongo
+      -  api
+    links:
+      -  mongo
+      -  api
+    ports:
+      -  "80:80"
+      -  "443:443"
